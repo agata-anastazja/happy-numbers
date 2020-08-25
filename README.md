@@ -1,10 +1,8 @@
 # happy
 
-A Clojure library designed to ... well, that part is up to you.
+4clojure accepts only anonymous functions so I put the solution in one file, and in the core file is the version of the 
+solution in which I have extracted some functionality into smaller methods.
 
-## Usage
-
-FIXME
 
 ## License
 

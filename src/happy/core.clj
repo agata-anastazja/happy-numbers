@@ -4,40 +4,22 @@
 (defn num->digits [n]
   (map #(Character/digit ^Character % 10) (str n) ))
 
-
-
-(defn squaredSum [numberSeq]
+(defn get-squared-sum [numberSeq]
   (reduce + (map (fn [number] (* number number)) numberSeq)))
+
+(defn has-this-squared-sum-appeared-before? [coll num]
+  (and (not (empty? coll)) (contains? coll num)))
 
 (defn happy-number? [number]
   (loop [ number number
          acc   []]
-    ( let [digits (map #(Character/digit ^Character % 10) (str number))
-           squared-sum  (reduce + (map (fn [number] (* number number)) digits))
+    ( let [digits (num->digits number)
+           squared-sum  (get-squared-sum digits)
            happy-number (= squared-sum 1)
-           this-squared-sum-appeared-before  (and (not (empty? acc)) (contains? acc squared-sum))]
+           this-squared-sum-appeared-before (has-this-squared-sum-appeared-before? acc squared-sum)]
       (case [happy-number this-squared-sum-appeared-before]
         [true true]  true
         [true false] true
         [false true] false
-        (do (println squared-sum acc)
+        (do
            (recur squared-sum (conj acc squared-sum)))))))
-
-
-
-
-(defn happy? [number]
-  (loop [ number number
-         acc   []]
-    ( let [digits (map #(Character/digit ^Character % 10) (str number))
-           squared-sum  (reduce + (map (fn [number] (* number number)) digits))
-           happy-number (= squared-sum 1)
-           this-squared-sum-appeared-before  (and (not (empty? acc)) (contains? acc squared-sum))]
-      (case [happy-number this-squared-sum-appeared-before]
-        [true true]  true
-        [true false] true
-        [false true] false
-        (do (println squared-sum acc)
-            (recur squared-sum (conj acc squared-sum)))))))
-
-
